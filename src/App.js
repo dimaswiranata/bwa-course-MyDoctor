@@ -1,11 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native';
+import { GetStarted } from './pages';
 
 const App = () => {
   return (
-    <View>
-      <Text>Welcome App JS</Text>
-    </View>
+    <GetStarted/>
   )
 }
 
