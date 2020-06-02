@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   title: {
-    fontSize: 20, 
-    fontWeight: '600', 
+    fontSize: 20,
+    fontFamily: 'Nunito-SemiBold',
     color: '#112340',
     marginTop: 20
   }
