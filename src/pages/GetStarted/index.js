@@ -1,12 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
-import { ILLogo, ILLGetStated } from '../../assets';
+import { ILLogo, ILGetStarted } from '../../assets';
 import { Button, Gap } from '../../component';
 import { colors, fonts } from '../../utils';
 
 const GetStarted = ({navigation}) => {
   return (
-    <ImageBackground source={ILLGetStated} style={styles.page}>
+    <ImageBackground source={ILGetStarted} style={styles.page}>
       <View>
         <ILLogo/>
         <Text style={styles.title}>Konsultasi dengan dokter jadi lebih mudah & fleksibel</Text>
