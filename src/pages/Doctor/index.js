@@ -2,8 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { HomeProfile, DoctorCategory, RatedDoctor, NewsItem, Gap } from '../../component';
 import { colors, fonts } from '../../utils';
+import { JSONCategoryDoctor } from '../../assets';
 
-const Doctor = () => {
+const Doctor = ({navigation}) => {
   return (
     <View style={styles.page}>
       <View style={styles.content}>
@@ -22,10 +23,17 @@ const Doctor = () => {
             >
               <View style={styles.category}>
                 <Gap width={32}/>
-                <DoctorCategory/>
-                <DoctorCategory/>
-                <DoctorCategory/>
-                <DoctorCategory/>
+                {
+                  JSONCategoryDoctor.data.map(item => {
+                    return (
+                      <DoctorCategory 
+                        category={item.category} 
+                        key={item.id}
+                        onPress={ () => navigation.navigate('ChooseDoctor') }
+                      />
+                    );
+                  })
+                }
                 <Gap width={22}/>
               </View>
             </ScrollView>
