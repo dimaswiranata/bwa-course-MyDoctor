@@ -8,11 +8,41 @@ const ChooseDoctor = ({navigation}) => {
   return (
     <View style={styles.page}>
       <Header type="dark" title="Pilih Dokter Anak" onPress={() => navigation.goBack()}/>
-      <ListDoctor type="next" profile={DummyDoctor1} name="Alexander Janie" desc="Wanita"/>
-      <ListDoctor type="next" profile={DummyDoctor1} name="Alexander Janie" desc="Wanita"/>
-      <ListDoctor type="next" profile={DummyDoctor1} name="Alexander Janie" desc="Wanita"/>
-      <ListDoctor type="next" profile={DummyDoctor1} name="Alexander Janie" desc="Wanita"/>
-      <ListDoctor type="next" profile={DummyDoctor1} name="Alexander Janie" desc="Wanita"/>
+      <ListDoctor 
+        type="next" 
+        profile={DummyDoctor1} 
+        name="Alexander Janie" 
+        desc="Wanita"
+        onPress={() => navigation.navigate('Chatting')}
+      />
+      <ListDoctor 
+        type="next" 
+        profile={DummyDoctor1} 
+        name="Alexander Janie" 
+        desc="Wanita"
+        onPress={() => navigation.navigate('Chatting')}
+      />
+      <ListDoctor 
+        type="next" 
+        profile={DummyDoctor1} 
+        name="Alexander Janie" 
+        desc="Wanita"
+        onPress={() => navigation.navigate('Chatting')}
+      />
+      <ListDoctor 
+        type="next" 
+        profile={DummyDoctor1} 
+        name="Alexander Janie" 
+        desc="Wanita"
+        onPress={() => navigation.navigate('Chatting')}
+      />
+      <ListDoctor 
+        type="next" 
+        profile={DummyDoctor1} 
+        name="Alexander Janie" 
+        desc="Wanita"
+        onPress={() => navigation.navigate('Chatting')}
+      />
     </View>
   )
 }
