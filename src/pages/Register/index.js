@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Header, Input, Button, Gap, Loading } from '../../component';
-import { colors, useForm } from '../../utils';
+import { colors, useForm, storeData, showError } from '../../utils';
 import { Fire } from '../../config';
 import { showMessage, hideMessage } from "react-native-flash-message";
 
@@ -13,7 +13,7 @@ const Register = ({navigation}) => {
     password: ''
   });
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const onContinue = () => {
     console.log(form);
@@ -23,30 +23,27 @@ const Register = ({navigation}) => {
       .then(success => {
         setLoading(false);
         setForm('reset');
-        // https://firebase.com/users/i34523345
         const data = {
           fullName: form.fullName,
           profession: form.profession,
-          email: form.email
+          email: form.email,
+          uid: success.user.uid
         };
         Fire
           .database()
           .ref('users/' + success.user.uid + '/')
           .set(data);
+
+        storeData('user', data);
+        navigation.navigate('UploadPhoto', data);
         console.log('register success: ', success);
       })
       .catch(error => {
         const errorMessage = error.message;
         setLoading(false);
-        showMessage({
-          message: errorMessage,
-          type: "default",
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError(errorMessage);
         console.log('error: ', error);
       });
-    // navigation.navigate('UploadPhoto')
   }
 
   return (
