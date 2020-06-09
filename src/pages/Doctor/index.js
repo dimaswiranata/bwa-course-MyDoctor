@@ -1,10 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { HomeProfile, DoctorCategory, RatedDoctor, NewsItem, Gap } from '../../component';
-import { colors, fonts, getData } from '../../utils';
+import { colors, fonts, getData, showError } from '../../utils';
 import { JSONCategoryDoctor, DummyDoctor1, DummyDoctor2, DummyDoctor3 } from '../../assets';
+import { Fire } from "../../config";
 
 const Doctor = ({navigation}) => {
+  const [news, setNews] = useState([]);
+  const [categoryDoctor, setCategoryDoctor] = useState([]);
+  useEffect(() => {
+    Fire
+      .database()
+      .ref('news/')
+      .once('value')
+      .then(res => {
+        console.log('news: ', res.val());
+        if(res.val()){
+          setNews(res.val());
+        }
+      })
+      .catch(err => {
+        showError(err.message);
+      });
+
+    Fire
+      .database()
+      .ref('category_doctor/')
+      .once('value')
+      .then(res => {
+        console.log('category doctor: ', res.val());
+        if(res.val()){
+          setCategoryDoctor(res.val());
+        }
+      })
+      .catch(err => {
+        showError(err.message);
+      });
+
+  }, []);
+
   return (
     <View style={styles.page}>
       <View style={styles.content}>
@@ -24,7 +58,7 @@ const Doctor = ({navigation}) => {
               <View style={styles.category}>
                 <Gap width={32}/>
                 {
-                  JSONCategoryDoctor.data.map(item => {
+                  categoryDoctor.map(item => {
                     return (
                       <DoctorCategory 
                         category={item.category} 
@@ -59,9 +93,16 @@ const Doctor = ({navigation}) => {
             />
             <Text style={styles.sectionLabel}>Good News</Text>
           </View>
-          <NewsItem/>
-          <NewsItem/>
-          <NewsItem/>
+          {news.map(item => {
+            return (
+              <NewsItem
+                key={item.id}
+                title={item.title}
+                date={item.date}
+                image={item.image}
+              />
+            );
+          })}
           <Gap height={30}/>
         </ScrollView>
       </View>
