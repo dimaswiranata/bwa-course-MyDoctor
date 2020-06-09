@@ -4,6 +4,7 @@ import { ILLogo } from '../../assets';
 import { Input, Link, Button, Gap, Loading } from '../../component';
 import { colors, fonts, useForm, showError, storeData } from '../../utils';
 import { Fire } from '../../config';
+import { useDispatch } from "react-redux";
 
 const Login = ({navigation}) => {
 
@@ -11,12 +12,11 @@ const Login = ({navigation}) => {
     email: '',
     password: ''
   });
-
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const Login = () => {
     console.log('form: ', form);
-    setLoading(true);
+    dispatch({type: 'SET_LOADING', value: true});
     Fire
       .auth()
       .signInWithEmailAndPassword(form.email, form.password)
@@ -30,7 +30,7 @@ const Login = ({navigation}) => {
             console.log('data user: ', resDB.val());
             if(resDB.val()){
               storeData('user', resDB.val());
-              setLoading(false);
+              dispatch({type: 'SET_LOADING', value: false});
               navigation.replace('MainApp');
               setForm('reset');
             }
@@ -39,11 +39,10 @@ const Login = ({navigation}) => {
       .catch(err => {
         console.log('error: ', err);
         showError(err.message);
-        setLoading(false);
+        dispatch({type: 'SET_LOADING', value: false});
       });
-    //
-    // navigation.replace('MainApp')
   };
+
   return (
     <>
       <View style={styles.page}>
@@ -78,8 +77,6 @@ const Login = ({navigation}) => {
           />
         </ScrollView>
       </View>
-      {/* loading */}
-      {loading && <Loading/>}
     </>
   )
 }

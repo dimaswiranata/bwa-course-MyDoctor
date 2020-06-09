@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Header, Input, Button, Gap, Loading } from '../../component';
 import { colors, useForm, storeData, showError } from '../../utils';
 import { Fire } from '../../config';
+import { useDispatch } from "react-redux";
 
 const Register = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -12,15 +13,15 @@ const Register = ({navigation}) => {
     password: ''
   });
 
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const onContinue = () => {
     console.log(form);
-    setLoading(true);
+    dispatch({type: 'SET_LOADING', value: true});
     Fire.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
       .then(success => {
-        setLoading(false);
+        dispatch({type: 'SET_LOADING', value: false});
         setForm('reset');
         const data = {
           fullName: form.fullName,
@@ -39,7 +40,7 @@ const Register = ({navigation}) => {
       })
       .catch(error => {
         const errorMessage = error.message;
-        setLoading(false);
+        dispatch({type: 'SET_LOADING', value: false});
         showError(errorMessage);
         console.log('error: ', error);
       });
@@ -86,8 +87,6 @@ const Register = ({navigation}) => {
           </ScrollView>
         </View>
       </View>
-      {/* loading */}
-      {loading && <Loading/>}
     </>
   )
 }
