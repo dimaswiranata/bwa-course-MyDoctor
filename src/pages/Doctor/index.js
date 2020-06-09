@@ -5,11 +5,6 @@ import { colors, fonts, getData } from '../../utils';
 import { JSONCategoryDoctor, DummyDoctor1, DummyDoctor2, DummyDoctor3 } from '../../assets';
 
 const Doctor = ({navigation}) => {
-  useEffect(() => {
-    getData('user').then(res => {
-      console.log('data user: ', res);
-    });
-  }, [])
   return (
     <View style={styles.page}>
       <View style={styles.content}>

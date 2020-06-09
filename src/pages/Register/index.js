@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Header, Input, Button, Gap, Loading } from '../../component';
 import { colors, useForm, storeData, showError } from '../../utils';
 import { Fire } from '../../config';
-import { showMessage, hideMessage } from "react-native-flash-message";
 
 const Register = ({navigation}) => {
   const [form, setForm] = useForm({
