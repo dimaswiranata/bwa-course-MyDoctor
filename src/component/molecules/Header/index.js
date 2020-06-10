@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Gap, Button } from '../../../component';
 import { colors, fonts } from '../../../utils';
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: fonts.primary[600],
     fontSize: 20,
-    color: type === 'dark' ? colors.white : colors.text.primary
+    color: type === 'dark' ? colors.white : colors.text.primary,
+    textTransform: 'capitalize'
   })
 });
