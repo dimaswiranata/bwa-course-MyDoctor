@@ -6,20 +6,18 @@ import { Fire } from "../../config";
 
 const Splash = ({navigation}) => {
   useEffect(() => {
-    setTimeout(() => {
-      Fire.auth().onAuthStateChanged((user) => {
-        if (user){
-          // user lagi login
-          console.log('user: ', user);
+    const unsubscribe = Fire.auth().onAuthStateChanged(user => {
+      setTimeout(() => {
+        if (user) {
           navigation.replace('MainApp');
         } else {
-          // user log out
           navigation.replace('GetStarted');
         }
-      })
-      // navigation.replace('GetStarted');
-    }, 3000)
-  }, [])
+      }, 3000);
+    });
+
+    return () => unsubscribe();
+  }, [navigation]);
   return (
     <View style={styles.page}>
       <ILLogo/>

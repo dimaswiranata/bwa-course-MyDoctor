@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Header, Profile, List, Gap } from '../../component';
-import { getData } from "../../utils";
+import { getData, showError } from "../../utils";
 import { ILNullPhoto } from '../../assets';
+import { Fire } from "../../config";
 
 const UserProfile = ({navigation}) => {
   const [profile, setProfile] = useState({
@@ -17,7 +18,19 @@ const UserProfile = ({navigation}) => {
       data.photo = {uri: res.photo};
       setProfile(data);
     });
-  }, [])
+  }, []);
+
+  const signOut = () => {
+    Fire
+      .auth()
+      .signOut()
+      .then((res) => {
+        console.log('success sign out');
+        navigation.replace('GetStarted');
+      }).catch(err => {
+        showError(err.message);
+      })
+  };
 
   return (
     <View style={styles.page}>
@@ -51,10 +64,11 @@ const UserProfile = ({navigation}) => {
         icon="rate"
       />
       <List 
-        name="Help Center" 
+        name="Sign Out" 
         desc="Last Update Yesterday" 
         type="next"
         icon="help"
+        onPress={signOut}
       />
     </View>
   )
